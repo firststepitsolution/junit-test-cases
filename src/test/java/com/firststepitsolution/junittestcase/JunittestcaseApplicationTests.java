@@ -86,7 +86,7 @@ public class JunittestcaseApplicationTests {
 	
 	
 	/**
-	 * Way to wirte test cases for private method.
+	 * Way to write test cases for private method.
 	 * @throws NoSuchMethodException
 	 * @throws SecurityException
 	 * @throws IllegalAccessException
@@ -105,7 +105,7 @@ public class JunittestcaseApplicationTests {
 	
 	
 	/**
-	 * Way to wirte test cases for private method.
+	 * Way to write test cases for private method.
 	 * @throws NoSuchMethodException
 	 * @throws SecurityException
 	 * @throws IllegalAccessException
@@ -121,6 +121,28 @@ public class JunittestcaseApplicationTests {
 		listOfInteger.add(20);
 		Integer sum = (Integer)method.invoke(employeeService, listOfInteger,40);
 		assertEquals(70, sum);
+		
+	}
+	
+	/**
+	 * Way to write test cases for private method.
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	@Test
+	public void saveEmployee() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Method method = EmployeeService.class.getDeclaredMethod("saveEmployee", Employee.class);
+		method.setAccessible(true);
+		Employee emp = new Employee();
+		emp.setId(1L);
+		emp.setName("pankaj");
+		
+		when(employeeRepository.save(emp)).thenReturn(emp);
+		Employee restultEmp = (Employee)method.invoke(employeeService, emp);
+		assertEquals("pankaj", restultEmp.getName());
 		
 	}
 

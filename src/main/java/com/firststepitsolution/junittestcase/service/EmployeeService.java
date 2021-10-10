@@ -32,4 +32,8 @@ public class EmployeeService {
 		return num1+num2;
 	}
 	
+	private Employee saveEmployee(Employee emp) {
+		return employeeRepository.save(emp);
+	}
+	
 }
