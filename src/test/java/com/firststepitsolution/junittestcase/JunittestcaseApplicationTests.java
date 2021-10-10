@@ -138,11 +138,11 @@ public class JunittestcaseApplicationTests {
 		method.setAccessible(true);
 		Employee emp = new Employee();
 		emp.setId(1L);
-		emp.setName("pankaj");
+		emp.setName("testName");
 		
 		when(employeeRepository.save(emp)).thenReturn(emp);
 		Employee restultEmp = (Employee)method.invoke(employeeService, emp);
-		assertEquals("pankaj", restultEmp.getName());
+		assertEquals("testName", restultEmp.getName());
 		
 	}
 
