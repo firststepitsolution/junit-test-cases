@@ -26,4 +26,10 @@ public class EmployeeService {
 	private int sumOfTwoNumber(Integer num1,Integer num2) {
 		return num1+num2;
 	}
+	
+	private Integer sumOfListOfNumber(List<Integer> listOfInteger, Integer num2) {
+		Integer num1 = listOfInteger.stream().mapToInt(Integer::intValue).sum();
+		return num1+num2;
+	}
+	
 }

@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -97,6 +99,28 @@ public class JunittestcaseApplicationTests {
 		method.setAccessible(true);
 		int sum = (int)method.invoke(employeeService, 10,40);
 		assertEquals(50, sum);
+		
+	}
+	
+	
+	
+	/**
+	 * Way to wirte test cases for private method.
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	@Test
+	public void sumOfListOfNumberTest() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Method method = EmployeeService.class.getDeclaredMethod("sumOfListOfNumber", List.class,Integer.class);
+		method.setAccessible(true);
+		List<Integer> listOfInteger = new ArrayList<>();
+		listOfInteger.add(10);
+		listOfInteger.add(20);
+		Integer sum = (Integer)method.invoke(employeeService, listOfInteger,40);
+		assertEquals(70, sum);
 		
 	}
 
