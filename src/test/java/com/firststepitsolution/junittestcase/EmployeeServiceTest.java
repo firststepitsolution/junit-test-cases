@@ -4,56 +4,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firststepitsolution.junittestcase.model.Employee;
 import com.firststepitsolution.junittestcase.repository.EmployeeRepository;
 import com.firststepitsolution.junittestcase.service.EmployeeService;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-
-
-
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class JunittestcaseApplicationTests {
-	
-	private MockMvc mockMvc;
-	
-	ObjectMapper om = new ObjectMapper();
-	
-	@Autowired
-	private WebApplicationContext context;
-	
-	@Before
-	public void setUp() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-	}
+public class EmployeeServiceTest {
 
-	@Autowired
+	@InjectMocks
 	private EmployeeService employeeService;
 	
-	@MockBean
+	@Mock
 	private EmployeeRepository employeeRepository;
 	
 	@Test
@@ -69,21 +43,6 @@ public class JunittestcaseApplicationTests {
 		//assertEquals(Employee, employeeService.getEmployeeByName("pankaj"));
 		assertThat(employeeService.getEmployeeByName("pankaj").getName()).isEqualTo("pankaj");
 	}
-	
-	@Test
-	public void getEmployeeTest() throws Exception {
-		
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/employees")
-			      .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
-		
-		   int status = mvcResult.getResponse().getStatus();
-		   assertEquals(200, status);
-//		   String content = mvcResult.getResponse().getContentAsString();
-//		   //Employee[] empList = super.mapFromJson(content, Product[].class);
-//		   Employee[] empList = om.readValue(content, Employee[].class);
-//		   assertTrue(empList.length>0);
-	}
-	
 	
 	/**
 	 * Way to write test cases for private method.
@@ -145,5 +104,4 @@ public class JunittestcaseApplicationTests {
 		assertEquals("testName", restultEmp.getName());
 		
 	}
-
 }
